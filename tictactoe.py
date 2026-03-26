@@ -21,17 +21,27 @@ def check_winner(board):
         return "Tie"
     return None
 
-def main():
+import random
+
+def get_computer_move(board):
+    available_moves = [i for i, spot in enumerate(board) if spot == " "]
+    return random.choice(available_moves)
+    
+    def main():
     board = [" "] * 9
     current_player = "X"
     
     while True:
         print_board(board)
         try:
-            move = int(input(f"Player {current_player}, enter position (1-9): ")) - 1
-            if board[move] != " ":
-                print("Position already taken. Try again.")
-                continue
+                if current_player == "X":
+                move = int(input(f"Player {current_player}, enter position (1-9): ")) - 1
+                if board[move] != " ":
+                    print("Position already taken. Try again.")
+                    continue
+            else:
+                print("Computer is thinking...")
+                move = get_computer_move(board)
         except (ValueError, IndexError):
             print("Invalid input. Please enter a number between 1 and 9.")
             continue
